@@ -1,46 +1,44 @@
 package bst
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestPrint(t *testing.T) {
-	// example bst
 	/*
-				6
-			3			7
-		1		4	5		9
-						8
 
-	*/
-
-	/*
-		expected output
 		===========================
 
-		           |---[ 1 ]
-		     |---[ 3 ]
-		     |     |     |---[ 4 ]
-		     |     |---[ 5 ]
-		---[ 6 ]
-		     |---[ 7 ]
-		           |     |---[ 8 ]
-		           |---[ 9 ]
+
+		            |---[ 9 ]
+		            |     |---[ 8 ]
+		      |---[ 7 ]
+		|---[ 6 ]
+		                  |---[ 5 ]
+		      |     |---[ 4 ]
+		            |     |---[ 3 ]
+		      |---[ 2 ]
+		            |---[ 1 ]
+
 
 		===========================
+
+
 	*/
 
 	bst := New()
 	bst.Add(6)
-	bst.Add(3)
+	bst.Add(2)
 	bst.Add(7)
-	bst.Add(5)
+	bst.Add(4)
 	bst.Add(9)
 	bst.Add(1)
 	bst.Add(8)
-	bst.Add(4)
+	bst.Add(3)
+	bst.Add(5)
 
 	bst.Print()
-
-	t.Fatalf("Print Tree fail")
+	//t.Fatalf("Print Tree fail")
 }
 
 func TestTraverseOnOrder(t *testing.T) {

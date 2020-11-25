@@ -58,25 +58,54 @@ func traverseInOrder(n *Node, traverseItems *[]int) {
 }
 
 func (t *Bst) Print() {
-	fmt.Println("===========================")
-	printNode(t.root, 0)
-	fmt.Println("===========================")
+	fmt.Printf("===========================\n\n\n")
+	printNode(t.root, 0, 0, false)
+	fmt.Printf("\n\n===========================\n")
+
 }
 
-func printNode(n *Node, level int) {
+// branchDir => branch direction
+// 1 : right
+// 0 : root
+// -1 : left
+func printNode(n *Node, level int, branchDir int, change bool) {
 	if n != nil {
 		format := ""
 		for i := 0; i < level; i++ {
-			format += "       "
+			if change && (i == (level - 1)) {
+				format += "|"
+				format += "     "
+			} else {
+				format += "      "
+			}
+
 		}
-		format += "---[ "
-		// if level > 0 {
-		// 	format += "|---"
-		// }
+
+		format += "|---"
 		level++
-		printNode(n.Left, level)
-		fmt.Printf(format+"%d\n", n.Value)
-		printNode(n.Right, level)
+
+		nodeRightDir, nodeLeftDir := 1, 1
+		changeRight, changeLeft := true, true
+		if branchDir == 1 {
+			nodeRightDir = branchDir
+			nodeLeftDir = branchDir * -1
+			changeRight = false
+			changeLeft = true
+		} else if branchDir == -1 {
+			nodeRightDir = branchDir * -1
+			nodeLeftDir = branchDir
+			changeRight = true
+			changeLeft = false
+		} else if branchDir == 0 {
+			nodeRightDir = 1
+			nodeLeftDir = -1
+			changeRight = false
+			changeLeft = false
+		}
+
+		printNode(n.Right, level, nodeRightDir, changeRight)
+		fmt.Printf(format+"[ %d ]\n", n.Value)
+		printNode(n.Left, level, nodeLeftDir, changeLeft)
 	}
 
 }
