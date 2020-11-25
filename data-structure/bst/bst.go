@@ -1,6 +1,8 @@
 package bst
 
 import (
+	"fmt"
+
 	. "example.com/node"
 )
 
@@ -53,4 +55,28 @@ func traverseInOrder(n *Node, traverseItems *[]int) {
 		*traverseItems = append(*traverseItems, n.Value)
 		traverseInOrder(n.Right, traverseItems)
 	}
+}
+
+func (t *Bst) Print() {
+	fmt.Println("===========================")
+	printNode(t.root, 0)
+	fmt.Println("===========================")
+}
+
+func printNode(n *Node, level int) {
+	if n != nil {
+		format := ""
+		for i := 0; i < level; i++ {
+			format += "       "
+		}
+		format += "---[ "
+		// if level > 0 {
+		// 	format += "|---"
+		// }
+		level++
+		printNode(n.Left, level)
+		fmt.Printf(format+"%d\n", n.Value)
+		printNode(n.Right, level)
+	}
+
 }
