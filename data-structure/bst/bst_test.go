@@ -4,6 +4,8 @@ import (
 	"testing"
 )
 
+var bst Bst
+
 func TestPrint(t *testing.T) {
 	/*
 
@@ -26,7 +28,7 @@ func TestPrint(t *testing.T) {
 
 	*/
 
-	bst := New()
+	bst = New()
 	bst.Add(6)
 	bst.Add(2)
 	bst.Add(7)
@@ -42,28 +44,28 @@ func TestPrint(t *testing.T) {
 }
 
 func TestTraverseOnOrder(t *testing.T) {
-	// example bst
 	/*
-				6
-			3		7
-		1		5		9
-
-		expected output 1, 3,5, 6, 7, 9
+		expected output 1,2,3,4,5,6,7,8,9
 	*/
-	bst := New()
-	bst.Add(6)
-	bst.Add(3)
-	bst.Add(7)
-	bst.Add(5)
-	bst.Add(9)
-	bst.Add(1)
 
 	result := bst.TraverseInOrder()
-	expectedResult := []int{1, 3, 5, 6, 7, 9}
+	expectedResult := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 	if len(result) != len(expectedResult) {
-		t.Fatalf("traverse on order fail, result and expected result length not match")
+		t.Fatalf("result and expected result length not match. got %v, expected %v", len(result), len(expectedResult))
 	}
 
 	// t.Fatalf("traverse on order fail")
+	if !isSameSlice(result, expectedResult) {
+		t.Fatalf("result and expected slice not match.\n got %#v, expected %#v", result, expectedResult)
+	}
+}
+
+func isSameSlice(firstSlice, secondSlice []int) bool {
+	for i := range firstSlice {
+		if firstSlice[i] != secondSlice[i] {
+			return false
+		}
+	}
+	return true
 }
